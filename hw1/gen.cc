@@ -1,12 +1,13 @@
-#include <stdlib.h>
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <limits>
 #include <random>
+#include <vector>
 
 int main (int argc, char **argv) {
-    if (argc != 3) {
-        std::cerr << "argument error\n";
+    if (argc != 4) {
+        fprintf(stderr, "wrong argument number\n");
         return 0;
     }
 
@@ -19,24 +20,39 @@ int main (int argc, char **argv) {
     // set up the distribution
     std::uniform_real_distribution<float> dist(-1e30f, 1e30f);
 
-    // open file for output
+    // open output file
     std::ofstream output(argv[2], std::ios::binary);
     if (!output) {
-        std::cerr << "output file error" << std::endl;
+        fprintf(stderr, "fail to open output file\n");
         return 0;
     }
 
+    std::vector<float> vec(n);
     for (int i = 0; i < n; ++i) {
         while (true) {
             float ranNum = dist(ranEng);
 
             if (std::isinf(ranNum) == false) {
                 output.write(reinterpret_cast<const char*>(&ranNum), sizeof(float));
-                // std::cout << ranNum << std::endl;
+                // printf("%f\n", ranNum);
+                vec[i] = ranNum;
                 break;
             }
         }
     }
+
+    std::sort(vec.begin(), vec.end());
+    // for (int i = 0; i < n; ++i) {
+    //     printf("%f\n", vec[i]);
+    // }
+
+    // open solution file
+    std::ofstream solution(argv[3], std::ios::binary);
+    if (!solution) {
+        fprintf(stderr, "fail to open solution file\n");
+        return 0;
+    }
+    solution.write(reinterpret_cast<const char*>(vec.data()), n * sizeof(float));
 
     return 0;
 }
