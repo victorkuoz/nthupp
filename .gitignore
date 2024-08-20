@@ -3,3 +3,4 @@
 *.sol
 *gen
 *main
+.vscode/

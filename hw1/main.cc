@@ -127,10 +127,6 @@ int main (int argc, char **argv) {
             MPI_Barrier(MPI_COMM_WORLD);
         }
 
-        // for (int i = 0; i < sortSize; ++i) {
-        //     printf("%f\n", buffer[i]);
-        // }
-
         // open output file
         MPI_File output;
         ec = MPI_File_open(MPI_COMM_WORLD, argv[3], MPI_MODE_WRONLY | MPI_MODE_CREATE, MPI_INFO_NULL, &output);

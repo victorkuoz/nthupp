@@ -34,7 +34,6 @@ int main (int argc, char **argv) {
 
             if (std::isinf(ranNum) == false) {
                 output.write(reinterpret_cast<const char*>(&ranNum), sizeof(float));
-                // printf("%f\n", ranNum);
                 vec[i] = ranNum;
                 break;
             }
@@ -42,9 +41,6 @@ int main (int argc, char **argv) {
     }
 
     std::sort(vec.begin(), vec.end());
-    // for (int i = 0; i < n; ++i) {
-    //     printf("%f\n", vec[i]);
-    // }
 
     // open solution file
     std::ofstream solution(argv[3], std::ios::binary);
