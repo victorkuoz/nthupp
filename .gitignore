@@ -1,6 +1,8 @@
 *.in
 *.out
 *.sol
+*.bin
+*.txt
 *gen
 *main
 .vscode/
